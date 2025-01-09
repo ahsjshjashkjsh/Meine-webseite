@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO₂-Ausstoß pro Kopf in Zürich</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e8f4ff;
+            color: #333;
+        }
+
+        header {
+            background-color: #005dab;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        header .login-circle {
+            position: absolute;
+            top: 50%;
+            right: 1.5rem;
+            transform: translateY(-50%);
+            background-color: white;
+            color: #005dab;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        header .login-circle:hover {
+            background-color: #004a8a;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 2rem auto;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .left-panel, .right-panel {
+            flex: 1;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+        }
+
+        .left-panel h2, .right-panel h2 {
+            font-size: 1.5rem;
+            color: #005dab;
+            margin-bottom: 1rem;
+        }
+
+        .rank-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rank-list li {
+            background: #f0f8ff;
+            margin: 0.5rem 0;
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .rank-list li.gold {
+            background: linear-gradient(90deg, #ffd700, #ffe135);
+            border-color: #daa520;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .rank-list li.silver {
+            background: linear-gradient(90deg, #c0c0c0, #d3d3d3);
+            border-color: #a9a9a9;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .rank-list li.bronze {
+            background: linear-gradient(90deg, #cd7f32, #e59444);
+            border-color: #b87333;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .rank-list li.user {
+            background: #f8d7da;
+            border-color: #dc3545;
+            font-weight: bold;
+        }
+
+        .main-panel {
+            flex: 2;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .result {
+            background: #e8f5e9;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 2px solid #005dab;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .result h2 {
+            margin-top: 0;
+            color: #005dab;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        CO₂-Ausstoß pro Kopf in Zürich
+        <div class="login-circle">A</div>
+    </header>
+    <div class="container">
+        <!-- Rangliste -->
+        <div class="left-panel">
+            <h2>Top 5 Rangliste</h2>
+            <ul class="rank-list" id="rank-list"></ul>
+        </div>
+
+        <!-- Hauptbereich -->
+        <div class="main-panel">
+            <div class="result" id="result">
+                <h2>Ergebnis:</h2>
+                <p id="co2Output">Dein täglicher CO₂-Ausstoß beträgt: <strong>5.50 kg</strong>.</p>
+                <h3>Vergleich mit Zürich:</h3>
+                <p id="comparison">Du bist unter dem Durchschnitt in Zürich – großartig!</p>
+                <h3>Tipps zur Reduzierung:</h3>
+                <ul>
+                    <li>Reduziere Autofahrten, wo möglich.</li>
+                    <li>Nutze öffentliche Verkehrsmittel oder das Fahrrad.</li>
+                    <li>Vermeide Einwegartikel und recycle mehr.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Netto-Null-Ziel -->
+        <div class="right-panel">
+            <h2>Zürichs Netto-Null-Ziel</h2>
+            <p>
+                Die Stadt Zürich hat sich das ehrgeizige Ziel gesetzt, bis 2040 klimaneutral zu werden. 
+                Dabei sollen die direkten Treibhausgasemissionen auf Netto-Null reduziert werden. 
+                Für die Stadtverwaltung wird dieses Ziel sogar schon bis 2035 angestrebt.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function populateRankList(userScore = null) {
+            const rankList = document.getElementById('rank-list');
+            rankList.innerHTML = ''; // Liste leeren
+
+            const bots = [
+                { name: "Lena_LovesNature", score: (Math.random() * 8).toFixed(2) },
+                { name: "Green_Guru99", score: (Math.random() * 8).toFixed(2) },
+                { name: "EcoWarrior23", score: (Math.random() * 8).toFixed(2) },
+                { name: "SustainableSam", score: (Math.random() * 8).toFixed(2) },
+                { name: "CarbonFreeChris", score: (Math.random() * 8).toFixed(2) },
+            ];
+
+            if (userScore !== null) {
+                bots.push({ name: "Du", score: userScore.toFixed(2) });
+            }
+
+            bots.sort((a, b) => a.score - b.score);
+
+            bots.slice(0, 5).forEach((bot, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span>${index + 1}. ${bot.name}</span> <span>${bot.score} kg CO₂</span>`;
+
+                if (index === 0) li.classList.add('gold');
+                else if (index === 1) li.classList.add('silver');
+                else if (index === 2) li.classList.add('bronze');
+
+                if (bot.name === "Du") li.classList.add('user');
+
+                rankList.appendChild(li);
+            });
+        }
+
+        populateRankList(5.50); // Benutzerpunktzahl einfügen und Rangliste erstellen
+    </script>
+</body>
+</html>
