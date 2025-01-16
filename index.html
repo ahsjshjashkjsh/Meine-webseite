@@ -3,94 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CO₂-Ausstoß pro Kopf in Zürich</title>
+    <title>CO₂-Ausstoß pro Kopf</title>
     <style>
-        /* Dein vorhandener CSS-Code */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #e8f4ff;
+            background-color: #f4f4f9;
             color: #333;
         }
+
         header {
-            background-color: #005dab;
-            color: white;
-            padding: 1.5rem;
+            background-color: #0077cc;
+            color: #fff;
+            padding: 20px;
             text-align: center;
-            font-size: 1.5rem;
-            position: relative;
         }
+
         .container {
-            display: flex;
-            max-width: 1200px;
-            margin: 2rem auto;
-            justify-content: space-between;
-            gap: 2rem;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        .main-panel {
-            flex: 2;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
+
         .question {
-            margin-bottom: 1rem;
+            margin-bottom: 20px;
         }
+
         .question h3 {
-            margin-bottom: 0.5rem;
+            margin-bottom: 10px;
         }
+
         .result {
             display: none;
-            background: #e8f5e9;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            border: 2px solid #005dab;
-            border-radius: 10px;
-            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background: #e0f7e9;
+            border: 2px solid #0077cc;
+            border-radius: 8px;
         }
+
         .result h2 {
             margin-top: 0;
-            color: #005dab;
+            color: #0077cc;
+        }
+
+        button {
+            background-color: #0077cc;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #005fa3;
         }
     </style>
 </head>
 <body>
     <header>
-        CO₂-Ausstoß pro Kopf in Zürich
+        CO₂-Ausstoß pro Kopf
     </header>
     <div class="container">
-        <!-- Hauptbereich mit Fragen -->
-        <div class="main-panel">
-            <form id="quiz-form">
-                <div class="question">
-                    <h3>1. Wie oft nutzt du öffentliche Verkehrsmittel pro Woche?</h3>
-                    <label><input type="radio" name="q1" value="1"> Täglich</label><br>
-                    <label><input type="radio" name="q1" value="3"> 3-4 Mal</label><br>
-                    <label><input type="radio" name="q1" value="5"> Selten</label><br>
-                </div>
-                <div class="question">
-                    <h3>2. Wie oft isst du Fleisch pro Woche?</h3>
-                    <label><input type="radio" name="q2" value="1"> Nie</label><br>
-                    <label><input type="radio" name="q2" value="3"> 1-2 Mal</label><br>
-                    <label><input type="radio" name="q2" value="5"> Täglich</label><br>
-                </div>
-                <div class="question">
-                    <h3>3. Wie hoch ist dein monatlicher Stromverbrauch?</h3>
-                    <label><input type="radio" name="q3" value="1"> Niedrig (unter 100 kWh)</label><br>
-                    <label><input type="radio" name="q3" value="3"> Mittel (100-300 kWh)</label><br>
-                    <label><input type="radio" name="q3" value="5"> Hoch (über 300 kWh)</label><br>
-                </div>
-                <button type="button" onclick="calculateResult()">Ergebnis anzeigen</button>
-            </form>
-
-            <div class="result" id="result">
-                <h2>Ergebnis:</h2>
-                <p id="co2Output">Dein täglicher CO₂-Ausstoß beträgt: <strong>0 kg</strong>.</p>
-                <h3>Vergleich mit Zürich:</h3>
-                <p id="comparison"></p>
+        <form id="quiz-form">
+            <div class="question">
+                <h3>1. Wie oft benutzt du öffentliche Verkehrsmittel?</h3>
+                <label><input type="radio" name="q1" value="1"> Täglich</label><br>
+                <label><input type="radio" name="q1" value="3"> Mehrmals pro Woche</label><br>
+                <label><input type="radio" name="q1" value="5"> Selten oder nie</label>
             </div>
+
+            <div class="question">
+                <h3>2. Wie oft isst du Fleisch?</h3>
+                <label><input type="radio" name="q2" value="1"> Nie</label><br>
+                <label><input type="radio" name="q2" value="3"> Einmal pro Woche</label><br>
+                <label><input type="radio" name="q2" value="5"> Mehrmals pro Woche</label>
+            </div>
+
+            <div class="question">
+                <h3>3. Wie oft fliegst du im Jahr?</h3>
+                <label><input type="radio" name="q3" value="1"> Nie</label><br>
+                <label><input type="radio" name="q3" value="3"> Einmal</label><br>
+                <label><input type="radio" name="q3" value="5"> Mehrmals</label>
+            </div>
+
+            <button type="button" onclick="calculateResult()">Ergebnis anzeigen</button>
+        </form>
+
+        <div class="result" id="result">
+            <h2>Ergebnis:</h2>
+            <p id="co2Output">Dein täglicher CO₂-Ausstoß beträgt: <strong>0 kg</strong>.</p>
+            <h3>Vergleich:</h3>
+            <p id="comparison"></p>
         </div>
     </div>
 
@@ -102,20 +112,20 @@
             const comparison = document.getElementById('comparison');
 
             let totalScore = 0;
-
             const answers = new FormData(form);
+
             answers.forEach(value => {
                 totalScore += parseInt(value);
             });
 
-            const dailyCo2 = (totalScore * 1.1).toFixed(2); // Ein Beispiel für CO₂-Berechnung
+            const dailyCo2 = (totalScore * 1.1).toFixed(2); // Beispielberechnung
 
             co2Output.innerHTML = `Dein täglicher CO₂-Ausstoß beträgt: <strong>${dailyCo2} kg</strong>.`;
 
             if (dailyCo2 < 5.5) {
-                comparison.textContent = "Du bist unter dem Durchschnitt in Zürich – großartig!";
+                comparison.textContent = "Du bist unter dem Durchschnitt – großartig!";
             } else {
-                comparison.textContent = "Du bist über dem Durchschnitt in Zürich – es gibt Raum zur Verbesserung.";
+                comparison.textContent = "Du bist über dem Durchschnitt – es gibt Raum zur Verbesserung.";
             }
 
             resultDiv.style.display = 'block';
